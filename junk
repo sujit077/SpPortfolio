@@ -1,82 +1,26 @@
+.iframe-container {
+  position: relative;
+  display: inline-block;
+}
 
-ery hour (or any interval you need), and event listeners that detect if there was any activity at all during the previous interval's duration. If there was activity the the refreshTokenInterval completes the token refresh logic, otherwise if there was no activity refreshTokenInterval kills the running interval and clears the activity event listeners.
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-Code:
-
-const INTERVAL_TIME = 1000 * 60 * 60;
-
-const events = [
-  "mousedown",
-  "mousemove",
-  "wheel",
-  "keydown",
-  "touchstart",
-  "scroll"
-  // ... add other events here ...
-];
-
-const addListeners = (events, cb) => {
-  events.forEach((event) =>
-    window.addEventListener(event, cb, { passive: true })
-  );
-
-  return () => {
-    events.forEach((event) =>
-      window.removeEventListener(event, cb, { passive: true })
-    );
-  };
-};
-
-const useRefreshTokenInterval = (activeAccount, interval = INTERVAL_TIME) => {
-  const intervalRef = React.useRef();
-  const unlistenRef = React.useRef();
-  const wasActiveRef = React.useRef(false);
-
-  React.useEffect(() => {
-    const refreshTokenInterval = (initial) => {
-      if (!initial && !wasActiveRef.current) {
-        // Inactive, clearing interval, not refreshing token
-        CookieService.remove(activeAccount);
-        clearInterval(intervalRef.current);
-        if (unlistenRef.current) {
-          unlistenRef.current();
-        }
-        return;
-      }
-      try {
-        const isLoggedIn = useAuthStore.getState().isLoggedIn;
-        if (isLoggedIn) {
-          // Attempting token refresh
-          AuthenticationService.refresh(null, (response) =>
-            CookieService.set(activeAccount, response.data)
-          );
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        // Reset activity for next interval
-        wasActiveRef.current = false;
-      }
-    };
-
-    refreshTokenInterval(true); // <-- initial call
-
-    // Setup token refresh interval
-    intervalRef.current = setInterval(refreshTokenInterval, interval);
-
-    // Add activity event listeners
-    unlistenRef.current = addListeners(events, () => {
-      // There was some activity
-      wasActiveRef.current = true;
-    });
-
-    // Return cleanup function to clear any running interval timer
-    // and unsubscribes event listeners
-    return () => {
-      clearInterval(intervalRef.current);
-      if (unlistenRef.current) {
-        unlistenRef.current();
-      }
-    };
-  }, [activeAccount, interval]);
-};
+.close-button:hover {
+  background-color: darkred;
+}
