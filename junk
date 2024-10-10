@@ -1,25 +1,33 @@
 import React, { useState } from "react";
 
 const DynamicInputBoxes = () => {
-  // State to store an array of input fields
   const [inputFields, setInputFields] = useState([""]);
 
-  // Function to handle adding a new input box
-  const addInputField = () => {
-    setInputFields([...inputFields, ""]);
+  // Function to add an input box below the current one
+  const addInputFieldBelow = (index) => {
+    const fields = [...inputFields];
+    fields.splice(index + 1, 0, ""); // Insert a new empty string below the current index
+    setInputFields(fields);
   };
 
-  // Function to handle removing an input box
+  // Function to add an input box above the current one
+  const addInputFieldAbove = (index) => {
+    const fields = [...inputFields];
+    fields.splice(index, 0, ""); // Insert a new empty string above the current index
+    setInputFields(fields);
+  };
+
+  // Function to remove an input box
   const removeInputField = (index) => {
     const fields = [...inputFields];
-    fields.splice(index, 1); // Remove input box at the specified index
+    fields.splice(index, 1); // Remove the input box at the specified index
     setInputFields(fields);
   };
 
   // Function to handle changes in the input box value
   const handleInputChange = (index, event) => {
     const fields = [...inputFields];
-    fields[index] = event.target.value; // Update value of the input at the specific index
+    fields[index] = event.target.value; // Update the input value at the specified index
     setInputFields(fields);
   };
 
@@ -33,8 +41,11 @@ const DynamicInputBoxes = () => {
             onChange={(event) => handleInputChange(index, event)}
             placeholder={`Input box ${index + 1}`}
           />
-          <button onClick={addInputField} style={{ marginLeft: "10px" }}>
-            Add
+          <button onClick={() => addInputFieldAbove(index)} style={{ marginLeft: "10px" }}>
+            Add Above
+          </button>
+          <button onClick={() => addInputFieldBelow(index)} style={{ marginLeft: "5px" }}>
+            Add Below
           </button>
           <button
             onClick={() => removeInputField(index)}
