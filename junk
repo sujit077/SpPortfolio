@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaPlus, FaMinus, FaArrowUp, FaArrowDown } from "react-icons/fa"; // Importing icons
 
 const DynamicInputBoxes = () => {
   const [inputFields, setInputFields] = useState([""]);
@@ -34,28 +35,43 @@ const DynamicInputBoxes = () => {
   return (
     <div>
       {inputFields.map((input, index) => (
-        <div key={index} style={{ marginBottom: "10px" }}>
+        <div key={index} style={{ marginBottom: "10px", display: "flex", alignItems: "center" }}>
           <input
             type="text"
             value={input}
             onChange={(event) => handleInputChange(index, event)}
             placeholder={`Input box ${index + 1}`}
+            style={{ marginRight: "10px" }}
           />
-          <button onClick={() => addInputFieldAbove(index)} style={{ marginLeft: "10px" }}>
-            Add Above
-          </button>
-          <button onClick={() => addInputFieldBelow(index)} style={{ marginLeft: "5px" }}>
-            Add Below
-          </button>
-          <button
+          <FaArrowUp
+            onClick={() => addInputFieldAbove(index)}
+            style={{ cursor: "pointer", marginRight: "10px" }}
+            title="Add Above"
+          />
+          <FaArrowDown
+            onClick={() => addInputFieldBelow(index)}
+            style={{ cursor: "pointer", marginRight: "10px" }}
+            title="Add Below"
+          />
+          <FaMinus
             onClick={() => removeInputField(index)}
-            style={{ marginLeft: "5px" }}
-            disabled={inputFields.length === 1} // Disable remove button if there's only one input box
-          >
-            Remove
-          </button>
+            style={{
+              cursor: "pointer",
+              marginRight: "10px",
+              color: inputFields.length === 1 ? "grey" : "red",
+            }}
+            title="Remove"
+            disabled={inputFields.length === 1} // Disable remove if only one input box
+          />
         </div>
       ))}
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <FaPlus
+          onClick={() => setInputFields([...inputFields, ""])}
+          style={{ cursor: "pointer", color: "green", fontSize: "1.5em" }}
+          title="Add New Input Box"
+        />
+      </div>
     </div>
   );
 };
