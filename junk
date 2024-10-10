@@ -1,48 +1,52 @@
-.iframe-container {
-  position: relative;
-  display: inline-block;
-  width: 600px; /* Set width same as iframe */
-  height: 400px; /* Set height same as iframe */
-}
+import React, { useState } from "react";
 
-.loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  z-index: 10; /* Make sure loader appears on top */
-}
+const DynamicInputBoxes = () => {
+  // State to store an array of input fields
+  const [inputFields, setInputFields] = useState([""]);
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  // Function to handle adding a new input box
+  const addInputField = () => {
+    setInputFields([...inputFields, ""]);
+  };
 
-.close-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: red;
-  color: white;
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10; /* Make sure button is on top of the iframe */
-}
+  // Function to handle removing an input box
+  const removeInputField = (index) => {
+    const fields = [...inputFields];
+    fields.splice(index, 1); // Remove input box at the specified index
+    setInputFields(fields);
+  };
 
-.close-button:hover {
-  background-color: darkred;
-}
+  // Function to handle changes in the input box value
+  const handleInputChange = (index, event) => {
+    const fields = [...inputFields];
+    fields[index] = event.target.value; // Update value of the input at the specific index
+    setInputFields(fields);
+  };
+
+  return (
+    <div>
+      {inputFields.map((input, index) => (
+        <div key={index} style={{ marginBottom: "10px" }}>
+          <input
+            type="text"
+            value={input}
+            onChange={(event) => handleInputChange(index, event)}
+            placeholder={`Input box ${index + 1}`}
+          />
+          <button onClick={addInputField} style={{ marginLeft: "10px" }}>
+            Add
+          </button>
+          <button
+            onClick={() => removeInputField(index)}
+            style={{ marginLeft: "5px" }}
+            disabled={inputFields.length === 1} // Disable remove button if there's only one input box
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default DynamicInputBoxes;
