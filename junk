@@ -1,78 +1,113 @@
 import React, { useState } from "react";
-import { FaPlus, FaMinus, FaArrowUp, FaArrowDown } from "react-icons/fa"; // Importing icons
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+// Define a constant type for drag-and-drop
+const ItemType = "INPUT_FIELD";
+
+const InputBox = ({ input, index, moveInputField, removeInputField, handleInputChange }) => {
+  const ref = React.useRef(null);
+
+  // Drag logic for the input box
+  const [{ isDragging }, drag] = useDrag({
+    type: ItemType,
+    item: { index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  // Drop logic for reordering
+  const [, drop] = useDrop({
+    accept: ItemType,
+    hover: (item) => {
+      if (item.index !== index) {
+        moveInputField(item.index, index);
+        item.index = index; // Update the dragged item's index after moving
+      }
+    },
+  });
+
+  // Connect drag and drop to the ref
+  drag(drop(ref));
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "10px",
+        opacity: isDragging ? 0.5 : 1, // Opacity change while dragging
+      }}
+    >
+      <input
+        type="text"
+        value={input}
+        onChange={(event) => handleInputChange(index, event)}
+        placeholder={`Input box ${index + 1}`}
+        style={{ marginRight: "10px" }}
+      />
+      <FaMinus
+        onClick={() => removeInputField(index)}
+        style={{ cursor: "pointer", marginRight: "10px", color: "red" }}
+        title="Remove"
+      />
+    </div>
+  );
+};
 
 const DynamicInputBoxes = () => {
   const [inputFields, setInputFields] = useState([""]);
 
-  // Function to add an input box below the current one
-  const addInputFieldBelow = (index) => {
-    const fields = [...inputFields];
-    fields.splice(index + 1, 0, ""); // Insert a new empty string below the current index
-    setInputFields(fields);
+  // Move input field when dragged
+  const moveInputField = (fromIndex, toIndex) => {
+    const updatedFields = [...inputFields];
+    const [removed] = updatedFields.splice(fromIndex, 1); // Remove the dragged element
+    updatedFields.splice(toIndex, 0, removed); // Insert it at the new position
+    setInputFields(updatedFields);
   };
 
-  // Function to add an input box above the current one
-  const addInputFieldAbove = (index) => {
-    const fields = [...inputFields];
-    fields.splice(index, 0, ""); // Insert a new empty string above the current index
-    setInputFields(fields);
+  // Add a new input box at the end
+  const addInputField = () => {
+    setInputFields([...inputFields, ""]);
   };
 
-  // Function to remove an input box
+  // Remove a specific input box
   const removeInputField = (index) => {
     const fields = [...inputFields];
-    fields.splice(index, 1); // Remove the input box at the specified index
+    fields.splice(index, 1); // Remove input field at the specified index
     setInputFields(fields);
   };
 
-  // Function to handle changes in the input box value
+  // Handle input value change
   const handleInputChange = (index, event) => {
     const fields = [...inputFields];
-    fields[index] = event.target.value; // Update the input value at the specified index
+    fields[index] = event.target.value; // Update input value
     setInputFields(fields);
   };
 
   return (
-    <div>
+    <DndProvider backend={HTML5Backend}>
       {inputFields.map((input, index) => (
-        <div key={index} style={{ marginBottom: "10px", display: "flex", alignItems: "center" }}>
-          <input
-            type="text"
-            value={input}
-            onChange={(event) => handleInputChange(index, event)}
-            placeholder={`Input box ${index + 1}`}
-            style={{ marginRight: "10px" }}
-          />
-          <FaArrowUp
-            onClick={() => addInputFieldAbove(index)}
-            style={{ cursor: "pointer", marginRight: "10px" }}
-            title="Add Above"
-          />
-          <FaArrowDown
-            onClick={() => addInputFieldBelow(index)}
-            style={{ cursor: "pointer", marginRight: "10px" }}
-            title="Add Below"
-          />
-          <FaMinus
-            onClick={() => removeInputField(index)}
-            style={{
-              cursor: "pointer",
-              marginRight: "10px",
-              color: inputFields.length === 1 ? "grey" : "red",
-            }}
-            title="Remove"
-            disabled={inputFields.length === 1} // Disable remove if only one input box
-          />
-        </div>
+        <InputBox
+          key={index}
+          index={index}
+          input={input}
+          moveInputField={moveInputField}
+          removeInputField={removeInputField}
+          handleInputChange={handleInputChange}
+        />
       ))}
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
         <FaPlus
-          onClick={() => setInputFields([...inputFields, ""])}
+          onClick={addInputField}
           style={{ cursor: "pointer", color: "green", fontSize: "1.5em" }}
           title="Add New Input Box"
         />
       </div>
-    </div>
+    </DndProvider>
   );
 };
 
