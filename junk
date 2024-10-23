@@ -1,137 +1,18 @@
-import React, { useCallback } from 'react';
-import {
-  ReactFlow,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-} from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
+Web Application Development for Pharmaceutical Shipment Tracking:-
 
-const initialNodes = [
-  {
-    id: 'horizontal-1',
-    sourcePosition: 'right',
-    type: 'input',
-    data: { label: 'Input' },
-    position: { x: 0, y: 80 },
-  },
-  {
-    id: 'horizontal-2',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'A Node' },
-    position: { x: 250, y: 0 },
-  },
-  {
-    id: 'horizontal-3',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 3' },
-    position: { x: 250, y: 160 },
-  },
-  {
-    id: 'horizontal-4',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 4' },
-    position: { x: 500, y: 0 },
-  },
-  {
-    id: 'horizontal-5',
-    sourcePosition: 'top',
-    targetPosition: 'bottom',
-    data: { label: 'Node 5' },
-    position: { x: 500, y: 100 },
-  },
-  {
-    id: 'horizontal-6',
-    sourcePosition: 'bottom',
-    targetPosition: 'top',
-    data: { label: 'Node 6' },
-    position: { x: 500, y: 230 },
-  },
-  {
-    id: 'horizontal-7',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 7' },
-    position: { x: 750, y: 50 },
-  },
-  {
-    id: 'horizontal-8',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 8' },
-    position: { x: 750, y: 300 },
-  },
-];
+Developed a web application for tracking the shipment of pharmaceutical products.I have extensively worked on both the front-end and back-end development to ensure seamless functionality. On the front-end, I utilized React.js to create an interactive and user-friendly interface that allows users to efficiently manage scenarios. This includes features such as creating new scenarios, navigating back to previously saved ones, copying scenarios, and deleting them. I also implemented critical form validations to ensure data integrity, such as validation checks for user inputs, which prevent errors during the workflow.
 
-const initialEdges = [
-  {
-    id: 'horizontal-e1-2',
-    source: 'horizontal-1',
-    type: 'smoothstep',
-    target: 'horizontal-2',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e1-3',
-    source: 'horizontal-1',
-    type: 'smoothstep',
-    target: 'horizontal-3',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e1-4',
-    source: 'horizontal-2',
-    type: 'smoothstep',
-    target: 'horizontal-4',
-    label: 'edge label',
-  },
-  {
-    id: 'horizontal-e3-5',
-    source: 'horizontal-3',
-    type: 'smoothstep',
-    target: 'horizontal-5',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e3-6',
-    source: 'horizontal-3',
-    type: 'smoothstep',
-    target: 'horizontal-6',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e5-7',
-    source: 'horizontal-5',
-    type: 'smoothstep',
-    target: 'horizontal-7',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e6-8',
-    source: 'horizontal-6',
-    type: 'smoothstep',
-    target: 'horizontal-8',
-    animated: true,
-  },
-];
+On the back-end, I worked with Java, Spring Boot, PostgreSQL, and Spring Data JPA to build and optimize the APIs responsible for managing the key operations of the web application. These APIs were designed to handle all CRUD (Create, Read, Update, Delete) functionalities required for managing user scenarios. For each of these operations, I ensured that the APIs were built with a focus on performance and scalability. This included implementing proper error handling, optimizing database queries for better performance.
 
-const FlowChart = () => {
-  const [nodes, _, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const onConnect = useCallback(
-    (params) => setEdges((els) => addEdge(params, els)),
-    [],
-  );
 
-  return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-    ></ReactFlow>
-  );
-};
+1)Ikegai- KPMG internal project:-
 
-export default FlowChart;
+As a front-end developer, One of my key contributions has been the design and implementation of several interactive features that improve the overall responsiveness and control within the application. For instance, I successfully added a "Stop Response" button that enables users to halt the model's response mid-conversation, enhancing user control and providing an rich experience. Furthermore, I introduced a prompt positioning feature that allows users to customize the layout of prompts within use cases, improving flexibility.
+
+Additionally, I addressed several critical bugs that were affecting the usability of the system.One of the most impactful fixes was the "Response not generating Out of Page," where I ensured that the application's response generation process would continue uninterrupted even if the user navigated away from the page. This fix greatly enhanced the reliability of the application, as users no longer needed to stay on the same page to receive responses, improving overall user experience. Another notable bug fix involved resolving an issue related to document renaming, where the document would mistakenly be removed after renaming. Fixing this bug not only restored proper document handling but also ensured that users could continue their work without interruption. 
+
+Beyond addressing bugs, I also focused on implementing features that improve user navigation and interactivity. One such feature was the ability to embed external web pages using iframe, complete with a loader to provide a smooth user experience. This enabled seamless integration of external content within the application. Another valuable feature I added was the "Category Filter on Knowledge Engine Page," which allows users to filter knowledge engine results by category. This feature greatly improved the user experience by enabling more targeted searches, making information retrieval faster and more efficient.
+
+In terms of user security and management, I implemented an auto logout feature, ensuring that user sessions are automatically terminated after a period of inactivity. This greatly reduces the risk of unauthorized access and enhances the application's security. Additionally, I worked on disabling specific options for unauthorized users, ensuring that only users with the proper access levels can make changes or view sensitive information within the use cases. This granular control over user permissions strengthens the application's access management.
+
+Lastly, I have been deeply involved in the deployment process. I deployed the application to Azure Web App and established a CI/CD pipeline for automated deployment. These efforts have streamlined the deployment process, reduced manual intervention, and ensured faster and more reliable updates.
