@@ -1,0 +1,313 @@
+{
+    "nodes": [
+      {
+        "id": "1",
+        "type": "agentNode",
+        "position": { "x": 100, "y": 250 },
+        "data": {
+              "label": "Master Agent",
+              "properties": {
+                "is_image": "true"
+              }
+            }
+      },
+      {
+        "id": "2",
+        "type": "agentNode",
+        "position": { "x": 400 , "y": 100 },
+        "data": {
+              "label": "Bial Agent",
+              "properties": {
+                "Data": "true",
+                "Api": "false"
+              }
+            }
+      },
+      {
+        "id": "3",
+        "type": "agentNode",
+        "position": { "x": 400 , "y": 250 },
+        "data": {
+              "label": "Weather Agent",
+              "properties": {
+                "Data": "true",
+                "Api": "false"
+              }
+            }
+      },
+      {
+        "id": "4",
+        "type": "agentNode",
+        "position": { "x": 400 , "y": 400 },
+        "data": {
+              "label": "Store Agent",
+              "properties": {
+                "Data": "true",
+                "Api": "false"
+              }
+            }
+      },
+      {
+        "id": "11",
+        "type": "evaluationNode",
+        "position": { "x": 400 , "y":  700},
+        "data": {
+              "label": "Tool 3",
+              "properties": {
+                "Key1": "Tool 3 Property 1",
+                "Key2": "Tool 3 Property 2",
+                "Key3": "Tool 3 Property 3"
+              },
+              "metrics": {
+                "coherence": 85,
+                "fluency": 78,
+                "relevancy": 92,
+                "bias": 45
+              }
+            }
+      },
+      {
+        "id": "5",
+        "type": "toolNode",
+        "position": { "x": 700, "y": 0 },
+        "data": {
+              "label": "Rag Tool",
+              "properties": {
+              }
+            }
+      },
+      {
+        "id": "12",
+        "type": "toolNode",
+        "position": { "x": 700, "y":  100},
+        "data": {
+              "label": "DuckDuckGo Tool",
+              "properties": {
+              }
+            }
+      },
+      {
+        "id": "6",
+        "type": "toolNode",
+        "position": { "x": 700, "y": 250 },
+        "data": {
+              "label": "API Tool",
+              "properties": {
+                "days": "2",
+                "forecast": "false"
+              }
+            }
+      },
+      {
+        "id": "10",
+        "type": "toolNode",
+        "position": { "x": 700, "y": 400 },
+        "data": {
+              "label": "API Tool",
+              "properties": {
+                "days": "2",
+                "forecast": "false"
+              }
+            }
+      },
+      {
+        "id": "7",
+        "type": "dataSourceNode",
+        "position": { "x": 1000, "y": 100 },
+        "data": {
+              "label": "text2SQL",
+              "properties": {
+                "Query": "Select *",
+                "storeName": "abc"
+              }
+            }
+      },
+      {
+        "id": "8",
+        "type": "dataSourceNode",
+        "position": { "x": 1000, "y": 250 },
+        "data": {
+              "label": "Tool 3",
+              "properties": {
+                "Query": "Select *",
+                "storeName": "abc"
+              }
+            }
+      },
+      {
+        "id": "9",
+        "type": "dataSourceNode",
+        "position": { "x": 1000, "y": 400 },
+        "data": {
+              "label": "Tool 3",
+              "properties": {
+                "Query": "Select *",
+                "storeName": "abc"
+              }
+            }
+      }
+    ],
+    "edges": [
+        { 
+            "id": "e1-2", 
+            "source": "1", 
+            "target": "2" ,
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e1-3", 
+            "source": "1", 
+            "target": "3",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e1-4", 
+            "source": "1", 
+            "target": "4",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e2-5", 
+            "source": "2", 
+            "target": "5",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e2-6", 
+            "source": "2", 
+            "target": "12",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e3-6", 
+            "source": "3", 
+            "target": "6",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e4-7", 
+            "source": "4", 
+            "target": "10",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e10-9", 
+            "source": "10", 
+            "target": "9",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e6-8", 
+            "source": "6", 
+            "target": "8",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        },
+        { 
+            "id": "e12-7", 
+            "source": "12", 
+            "target": "7",
+            "animated": "true",
+            "markerEnd": {
+            "type": "arrowclosed",
+            "width": 10,
+            "height": 10,
+            "color": "#FF0072"
+            },
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "#FF0072"
+            }
+        }
+    ]
+  }
+  
